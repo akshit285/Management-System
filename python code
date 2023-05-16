@@ -1,0 +1,307 @@
+# importing module mysql.connector
+
+import mysql.connector as my_sql
+
+# FUNCTOIN TO CREATE DATABASE AND TABLE
+
+def create():
+    mydb= my_sql.connect(host="localhost",user="root",password="admin")
+    cur=mydb.cursor()
+    cur.execute("create database python_mysql_connector")
+    cur.execute("use python_mysql_connector")
+    cur.execute("create table JEE_MAIN (S_No int, Application_Number char(12) primary key, Candidate_Name varchar(20), State varchar(20), Category varchar(7))")
+    mydb.close()
+
+# FUNCTION TO ADD ROW INFORMATION
+
+def insert():
+    mydb= my_sql.connect(host="localhost",user="root",password="admin",database="python_mysql_connector")
+    cur=mydb.cursor()
+    n= int(input("Enter total number of students: "))
+    for i in range(n):
+        s= int(input("Enter S.No.: "))
+        app_no= int(input("Enter Application Number: "))
+        name=input("Enter Candidate Name: ")
+        sce=input("Enter State: ")
+        c=input("Enter Category: ")
+        ins= "insert into JEE_MAIN values(%s,%s,'%s','%s','%s')"%(s,app_no,name,sce,c)
+        cur.execute(ins)
+        mydb.commit()
+    mydb.close()
+
+# FUNCTION TO DISPLAY TABLE INFORMATION
+
+def display():
+    mydb= my_sql.connect(host="localhost",user="root",password="admin",database="python_mysql_connector")
+    cur=mydb.cursor()
+    cur.execute("select * from JEE_MAIN")
+    print("________________________________________________________________________________________________________")
+    print("\nS.No.\tApplication_Number\tCandidate_Name\t\t\tState\t\t\tCategory\n")
+
+    print("________________________________________________________________________________________________________")
+    for row in cur:
+        print(row[0],"\t",row[1],"\t\t",row[2],"\t\t",row[3],"\t",row[4])
+    mydb.close()
+
+def displaysno():
+    mydb= my_sql.connect(host="localhost",user="root",password="admin",database="python_mysql_connector")
+    cur=mydb.cursor()
+    sno=int(input("Enter S.No.: "))
+    cur.execute("select * from JEE_MAIN where S_No=%s"%(sno))
+    print("________________________________________________________________________________________________________")
+    print("\nS_No\tApplication_Number\tCandidate_Name\t\tState\t\t\tCategory\n")
+    print("________________________________________________________________________________________________________")
+    for row in cur:
+            print(row[0],"\t",row[1],"\t\t",row[2],"\t",row[3],"\t",row[4])
+    mydb.close()
+
+def displayappno():
+    mydb= my_sql.connect(host="localhost",user="root",password="admin",database="python_mysql_connector")
+    cur=mydb.cursor()
+    appno=int(input("Enter Application Number: "))
+    cur.execute("select * from JEE_MAIN where Application_Number=%s"%(appno))
+    print("________________________________________________________________________________________________________")
+    print("\nS_No\tApplication_Number\tCandidate_Name\t\tState\t\t\tCategory\n")
+    print("________________________________________________________________________________________________________")
+    for row in cur:
+        print(row[0],"\t",row[1],"\t\t",row[2],"\t",row[3],"\t",row[4])
+    mydb.close()
+
+def displayname():
+    mydb= my_sql.connect(host="localhost",user="root",password="admin",database="python_mysql_connector")
+    cur=mydb.cursor()
+    name= input("Enter Candidate Name: ")
+    cur.execute("select * from JEE_MAIN where Candidate_Name='%s'"%(name))
+
+    print("________________________________________________________________________________________________________")
+    print("\nS_No\tApplication_Number\tCandidate_Name\t\tState\t\t\tCategory\n")
+    print("________________________________________________________________________________________________________")
+    for row in cur:
+        print(row[0],"\t",row[1],"\t\t",row[2],"\t",row[3],"\t",row[4])
+    mydb.close()
+
+def displaystate():
+    mydb= my_sql.connect(host="localhost",user="root",password="admin",database="python_mysql_connector")
+    cur=mydb.cursor()
+    st= input("Enter State: ")
+    cur.execute("select * from JEE_MAIN where State='%s'"%(st))
+    print("________________________________________________________________________________________________________")
+    print("\nS_No\tApplication_Number\tCandidate_Name\t\tState\t\t\tCategory\n")
+    print("________________________________________________________________________________________________________")
+    for row in cur:
+        print(row[0],"\t",row[1],"\t\t",row[2],"\t",row[3],"\t",row[4])
+    mydb.close()
+
+def displaycat():
+    mydb= my_sql.connect(host="localhost",user="root",password="admin",database="python_mysql_connector")
+    cur=mydb.cursor()
+    cat= input("Enter Category: ")
+    cur.execute("select * from JEE_MAIN where Category='%s'"%(cat))
+    print("________________________________________________________________________________________________________")
+    print("\nS_No\tApplication_Number\tCandidate_Name\t\tState\t\t\tCategory\n")
+    print("________________________________________________________________________________________________________")
+    for row in cur:
+        print(row[0],"\t",row[1],"\t\t",row[2],"\t",row[3],"\t",row[4])
+    mydb.close()
+
+# FUNCTION TO MODIFY DATA VALUES
+
+def updatesno():
+    mydb= my_sql.connect(host="localhost",user="root",password="admin",database="python_mysql_connector")
+    cur=mydb.cursor()
+    sno=int(input("Enter any S.No.: "))
+    a=int(input("Enter the Application number: "))
+    ins="update JEE_MAIN set S_No=%s where Application_Number=%s"%(sno,a)
+    cur.execute(ins)
+    mydb.commit()
+    mydb.close()
+
+def updatename():
+    mydb= my_sql.connect(host="localhost",user="root",password="admin",database="python_mysql_connector")
+    cur=mydb.cursor()
+    n=input("Enter Candidate Name: ")
+    a=int(input("Enter the Application number: "))
+    ins="update JEE_MAIN set Candidate_Name='%s' where Application_Number=%s"%(n,a)
+    cur.execute(ins)
+    mydb.commit()
+    mydb.close()
+
+def updatestate():
+    mydb= my_sql.connect(host="localhost",user="root",password="admin",database="python_mysql_connector")
+    cur=mydb.cursor()
+    st=input("Enter State: ")
+    a=int(input("Enter the Application number: "))
+    ins="update JEE_MAIN set State='%s' where Application_Number=%s"%(st,a)
+    cur.execute(ins)
+    mydb.commit()
+    mydb.close()
+
+def updatecat():
+    mydb= my_sql.connect(host="localhost",user="root",password="admin",database="python_mysql_connector")
+    cur=mydb.cursor()
+    c=input("Enter Catetgory: ")
+    a=int(input("Enter the Application number: "))
+    ins="update JEE_MAIN set Category='%s' where Application_Number=%s"%(c,a)
+    cur.execute(ins)
+    mydb.commit()
+    mydb.close()
+
+# FUNCTON TO REMOVE THE ROW INFORMATION
+
+def deletesno():
+    mydb= my_sql.connect(host="localhost",user="root",password="admin",database="python_mysql_connector")
+    cur=mydb.cursor()
+    sno=int(input("Enter any S.No.: "))
+    ins="delete from JEE_MAIN where S_No=%s"%(sno)
+    cur.execute(ins)
+    mydb.commit()
+    mydb.close()
+
+def deleteappno():
+    mydb= my_sql.connect(host="localhost",user="root",password="admin",database="python_mysql_connector")
+    cur=mydb.cursor()
+    appno=int(input("Enter Application Number: "))
+    ins="delete from JEE_MAIN where Application_Number=%s"%(appno)
+    cur.execute(ins)
+    mydb.commit()
+    mydb.close()
+
+def deletename():
+    mydb= my_sql.connect(host="localhost",user="root",password="admin",database="python_mysql_connector")
+    cur=mydb.cursor()
+    name=input("Enter Candidate Name: ")
+    ins="delete from JEE_MAIN where Candidate_Name='%s'"%(name)
+    cur.execute(ins)
+    mydb.commit()
+    mydb.close()
+
+def deletestate():
+    mydb= my_sql.connect(host="localhost",user="root",password="admin",database="python_mysql_connector")
+    cur=mydb.cursor()
+    st=input("Enter State: ")
+    ins="delete from JEE_MAIN where State='%s'"%(st)
+    cur.execute(ins)
+    mydb.commit()
+    mydb.close()
+
+def deletecat():
+    mydb= my_sql.connect(host="localhost",user="root",password="admin",database="python_mysql_connector")
+    cur=mydb.cursor()
+    cat=input("Enter Category: ")
+    ins="delete from JEE_MAIN where Category='%s'"%(cat)
+    cur.execute(ins)
+    mydb.commit()
+    mydb.close()
+
+# FUNCTION TO ALTER THE TABLE IN MYSQL
+
+def alteradd():
+    mydb= my_sql.connect(host="localhost",user="root",password="admin",database="python_mysql_connector")
+    cur=mydb.cursor()
+    col=input("Enter Column Name to be added: ")
+    ty=input("Enter Type of the column: ")
+    ins= "Alter table jee_main add "+col+" "+ty;
+    cur.execute(ins)
+    mydb.close()
+
+def altermod():
+    mydb= my_sql.connect(host="localhost",user="root",password="admin",database="python_mysql_connector")
+    cur=mydb.cursor()
+    col1=input("Enter old column name: ")
+    col2=input("Enter new column name: ")
+    ty=input("Enter Type of the column: ")
+    ins= "Alter table jee_main change "+col1+" "+col2+" "+ty;
+    cur.execute(ins)
+    mydb.close()
+
+def alterrem():
+    mydb= my_sql.connect(host="localhost",user="root",password="admin",database="python_mysql_connector")
+    cur=mydb.cursor()
+    col=input("Enter column name: ")
+    ins="Alter table jee_main drop "+col
+    cur.execute(ins)
+    mydb.close()
+
+# FUNCTION TO REMOVE THE TABLE IN MYSQL
+
+def droptable():
+    mydb= my_sql.connect(host="localhost",user="root",password="admin",database="python_mysql_connector")
+    cur=mydb.cursor()
+    cur.execute("drop table jee_main")
+    mydb.close()
+
+# MAIN PROGRAM
+
+ch='y'
+while ch=='y' or ch=='Y':
+    print("1: create\n\n2: insert\n\n3: Display\n\n4: Update\n\n5: Delete\n\n6: Alter\n\n7: Drop Table")
+    c= int(input("Enter Your Choice: "))
+    if c==1:
+        create()
+    elif c==2:
+        insert()
+    elif c==3:
+        print("1: Full Table Info\n\n2:Display based upon S.No.\n\n3:Display based upon Apllication Number\n\n4: Display based upon Candidate Name\n\n5: Display Based upon State\n\n6:Display based upon Category\n")
+        ch=int(input("Enter your choice: "))
+        if ch==1:
+            display()
+        elif ch==2:
+            displaysno()
+        elif ch==3:
+            displayappno()
+        elif ch==4:
+            displayname()
+        elif ch==5:
+            displaystate()
+        elif ch==6:
+            displaycat()
+        else:
+            print("Wrong Input")
+    elif c==4:
+        print("1: Update S.No.\n\n2: Update Candidate Name\n\n3: Update State\n\n4: Update Category")
+        ch=int(input("Enter your choice: "))
+        if ch==1:
+            updatesno()
+        elif ch==2:
+            updatename()
+        elif ch==3:
+            updatestate()
+        elif ch==4:
+            updatecat()
+        else:
+            print("Wrong Input")
+    elif c==5:
+        print("1: Delete by S.No.\n\n2: Delete by Application Number\n\n3: Delete by Candidate Name\n\n4: Delete by State\n\n5: Delete by Category")
+        ch=int(input("Enter your choice: "))
+        if ch==1:
+            deletesno()
+        elif ch==2:
+            deleteappno()
+        elif ch==3:
+            deletename()
+        elif ch==4:
+            deletestate()
+        elif ch==5:
+            deletecat()
+        else:
+            print("Wrong Input")
+    elif c==6:
+        print("1: Add new Column.\n\n2: Modify for existing column\n\n3: Remove existing column")
+        ch=int(input("Enter your choice: "))
+        if ch==1:
+            alteradd()
+        elif ch==2:
+            altermod()
+        elif ch==3:
+            alterrem()
+        else:
+            print("Wrong Input")
+    elif c==7:
+        x= input("Do You Want to Drop JEE_MAIN Table[Y/N]: ")
+        if x=='y' or x=='Y':
+            droptable()
+        else:
+            pass
+    else:
+        print("Wrong Input")
+    ch= input("Do you want to continue or not[Y/N]: ")
